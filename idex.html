@@ -3,323 +3,300 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modelo de Caja - Estilo iOS</title>
+    <title>Modelo de Caja</title>
+    <!-- Importación de tipografías desde Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        /* Variables de color estilo iOS */
+        /* Variables de color basadas en la imagen de Figma */
         :root {
-            --bg-base: #F2F2F7;
-            --card-bg: #FFFFFF;
-            --text-primary: #1C1C1E;
-            --text-secondary: #8E8E93;
-            --accent-blue: #007AFF;
-            --accent-green: #34C759;
-            --border-color: rgba(60, 60, 67, 0.18);
+            --bg-color: #FFFFFF;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --accent-green: #596c31; /* Botón verde oliva */
             
-            /* Colores de Inspección (Box Model) */
-            --inspect-margin: rgba(255, 149, 0, 0.15); /* Naranja iOS */
-            --inspect-margin-border: rgba(255, 149, 0, 0.6);
-            --inspect-border: rgba(255, 204, 0, 0.25); /* Amarillo iOS */
-            --inspect-border-line: rgba(255, 204, 0, 0.8);
-            --inspect-padding: rgba(52, 199, 89, 0.15); /* Verde iOS */
-            --inspect-padding-border: rgba(52, 199, 89, 0.6);
-            --inspect-content: rgba(0, 122, 255, 0.15); /* Azul iOS */
-            --inspect-content-border: rgba(0, 122, 255, 0.6);
-
-            /* Animación suave estilo Apple */
-            --ios-spring: cubic-bezier(0.25, 1, 0.5, 1);
+            /* Colores del Modelo de Caja (Estilo Terroso/Editorial) */
+            --box-margin: #f4f4f0; /* Beige muy claro */
+            --box-border: #dcdcd6; /* Gris arena */
+            --box-padding: #e9ece4; /* Verde salvia claro */
+            --box-content: #ffffff; /* Blanco puro */
+            --highlight: #596c31;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-base);
-            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             margin: 0;
-            padding: 20px 15px;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- CONTROLES SUPERIORES --- */
-        .header-container {
-            text-align: center;
-            margin-bottom: 30px;
-            margin-top: 20px;
-            max-width: 600px;
-        }
-
-        h1 {
-            font-size: 34px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
-        }
-
-        p.subtitle {
-            font-size: 17px;
-            color: var(--text-secondary);
-            line-height: 1.4;
-            margin-bottom: 24px;
-        }
-
-        /* iOS Toggle Switch */
-        .toggle-container {
+        /* --- BARRA DE NAVEGACIÓN (Estilo Figma) --- */
+        .navbar {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: var(--card-bg);
-            padding: 12px 24px;
-            border-radius: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-            margin: 0 auto;
-            width: max-content;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px 40px;
+            box-sizing: border-box;
+            margin-top: 10px;
         }
-
-        .toggle-label {
-            font-size: 16px;
+        .nav-logo {
+            font-weight: 600;
+            font-size: 18px;
+            letter-spacing: -0.5px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .nav-button {
+            background-color: var(--accent-green);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 50px; /* Botón píldora */
+            text-decoration: none;
+            font-size: 13px;
             font-weight: 500;
         }
 
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 51px;
-            height: 31px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #E9E9EA;
-            transition: .4s var(--ios-spring);
-            border-radius: 31px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 27px;
-            width: 27px;
-            left: 2px;
-            bottom: 2px;
-            background-color: white;
-            transition: .4s var(--ios-spring);
-            border-radius: 50%;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.15), 0 1px 1px rgba(0,0,0,0.16);
-        }
-
-        input:checked + .slider {
-            background-color: var(--accent-green);
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(20px);
-        }
-
-        /* --- CAPAS DEL MODELO DE CAJA --- */
-        /* Usamos padding para simular visualmente los espacios del box model */
-        
-        .box-model-container {
+        /* --- SECCIÓN PRINCIPAL HERO --- */
+        .hero-section {
             width: 100%;
-            max-width: 500px;
-            transition: all 0.5s var(--ios-spring);
+            max-width: 1200px;
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 40px;
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 85px;
+            font-weight: 400;
+            letter-spacing: -2px;
+            margin: 0;
+            color: var(--text-main);
         }
 
+        /* --- CONTENEDOR DEL MODELO DE CAJA INTERACTIVO --- */
+        .interactive-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        /* Capas del modelo de caja */
         .layer {
-            position: relative;
-            border-radius: 28px;
-            transition: all 0.6s var(--ios-spring);
-            box-sizing: border-box;
-        }
-
-        .layer-label {
-            position: absolute;
-            top: 6px;
-            left: 14px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-
-        /* Estado Normal (La tarjeta se ve como una sola pieza) */
-        .margin-layer { padding: 0; }
-        .border-layer { 
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
-            padding: 0;
-        }
-        .padding-layer { padding: 24px; }
-        .content-layer { padding: 0; border-radius: 12px; }
-
-        /* --- MODO INSPECTOR ACTIVADO --- */
-        .inspect-mode .margin-layer {
-            padding: 30px;
-            background-color: var(--inspect-margin);
-            border: 2px dashed var(--inspect-margin-border);
-            border-radius: 36px;
-        }
-        
-        .inspect-mode .border-layer {
-            padding: 4px; /* Simula el grosor del borde visualmente */
-            background-color: var(--inspect-border);
-            border: 2px dashed var(--inspect-border-line);
-            box-shadow: none;
-            border-radius: 24px;
-        }
-
-        .inspect-mode .padding-layer {
-            background-color: var(--inspect-padding);
-            border: 2px dashed var(--inspect-padding-border);
-            border-radius: 20px;
-            padding: 24px;
-        }
-
-        .inspect-mode .content-layer {
-            background-color: var(--inspect-content);
-            border: 2px dashed var(--inspect-content-border);
-            padding: 12px;
-        }
-
-        /* Mostrar etiquetas en modo inspector */
-        .inspect-mode .layer-label { opacity: 1; }
-        .inspect-mode .margin-layer > .layer-label { color: #cc7700; }
-        .inspect-mode .border-layer > .layer-label { color: #b38f00; }
-        .inspect-mode .padding-layer > .layer-label { color: #248a3d; }
-        .inspect-mode .content-layer > .layer-label { color: #0056b3; }
-
-        /* --- CONTENIDO INTERNO (UI iOS) --- */
-        .card-image-placeholder {
-            width: 100%;
-            height: 180px;
-            background-color: #F2F2F7;
-            border-radius: 16px;
-            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-secondary);
-        }
-
-        .card-image-placeholder svg {
-            width: 40px;
-            height: 40px;
-            opacity: 0.5;
-        }
-
-        .card-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin: 0 0 8px 0;
-            letter-spacing: -0.01em;
-        }
-
-        .card-text {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin: 0 0 24px 0;
-        }
-
-        .ios-button {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            background-color: var(--accent-blue);
-            color: white;
-            border: none;
-            border-radius: 14px;
-            font-size: 17px;
-            font-weight: 600;
+            flex-direction: column;
+            border-radius: 16px; /* Bordes suaves modernos */
             cursor: pointer;
-            transition: transform 0.2s ease, opacity 0.2s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+        
+        .layer:hover {
+            transform: scale(1.01);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        .ios-button:active {
-            transform: scale(0.97);
-            opacity: 0.9;
+        .layer.active {
+            outline: 2px solid var(--highlight);
+            outline-offset: 2px;
+            z-index: 10;
+        }
+        .layer-label {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        /* 1. Margen */
+        .margin {
+            background-color: var(--box-margin);
+            padding: 50px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        /* 2. Borde */
+        .border {
+            background-color: transparent;
+            border: 4px solid var(--box-border);
+            padding: 40px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        /* 3. Padding */
+        .padding {
+            background-color: var(--box-padding);
+            padding: 40px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        /* 4. Contenido */
+        .content {
+            background-color: var(--box-content);
+            padding: 40px 60px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid #eaeaea;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .content-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            margin: 0;
+            color: var(--accent-green);
+        }
+
+        /* --- PANEL DE INFORMACIÓN INFERIOR --- */
+        .info-panel {
+            background-color: #ffffff;
+            border: 1px solid #eaeaea;
+            border-radius: 16px;
+            padding: 30px;
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 140px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .info-panel h2 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        .info-panel p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .default-text { 
+            text-align: center; 
+            font-style: italic; 
+            color: #a0a0a0 !important;
         }
     </style>
 </head>
 <body>
 
-    <div class="header-container">
-        <h1>Modelo de Caja</h1>
-        <p class="subtitle">Descubre cómo se estructuran los elementos en la web. Activa el modo de inspección para ver la anatomía de esta tarjeta.</p>
-        
-        <div class="toggle-container">
-            <span class="toggle-label text-primary">Inspeccionar Elemento</span>
-            <label class="switch">
-                <input type="checkbox" id="inspectorToggle" onchange="toggleBoxModel()">
-                <span class="slider"></span>
-            </label>
-        </div>
-    </div>
+   
+    
 
-    <!-- EL ELEMENTO: Representación del Box Model -->
-    <main class="box-model-container" id="demonstration">
+    <!-- SECCIÓN HERO -->
+    <header class="hero-section">
+        <h1 class="hero-title">Modelo de caja interactivo.</h1>
+    </header>
+
+    <!-- DIAGRAMA INTERACTIVO -->
+    <main class="interactive-container">
         
-        <!-- 1. Margen (Margin) -->
-        <div class="layer margin-layer">
-            <span class="layer-label">Margen (Margin)</span>
+        <!-- Margen (Beige) -->
+        <div class="layer margin" id="layer-margin" onclick="mostrarInfo('margin', event)">
+            <span class="layer-label">Margin</span>
             
-            <!-- 2. Borde (Border) -->
-            <div class="layer border-layer">
-                <span class="layer-label">Borde (Border)</span>
+            <!-- Borde (Gris Arena) -->
+            <div class="layer border" id="layer-border" onclick="mostrarInfo('border', event)">
+                <span class="layer-label">Border</span>
                 
-                <!-- 3. Relleno (Padding) -->
-                <div class="layer padding-layer">
-                    <span class="layer-label">Relleno (Padding)</span>
+                <!-- Padding (Verde Salvia) -->
+                <div class="layer padding" id="layer-padding" onclick="mostrarInfo('padding', event)">
+                    <span class="layer-label">Padding</span>
                     
-                    <!-- 4. Contenido (Content) -->
-                    <div class="layer content-layer">
-                        <span class="layer-label">Contenido</span>
-                        
-                        <!-- Interfaz simulada -->
-                        <div class="card-image-placeholder">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                            </svg>
-                        </div>
-                        
-                        <h2 class="card-title">Diseño de Interfaz</h2>
-                        <p class="card-text">
-                            En CSS, todo elemento es una caja rectangular. Esta caja está compuesta por el <b>contenido</b>, envuelto en un <b>relleno</b>, rodeado por un <b>borde</b> y separado de otros mediante un <b>margen</b>.
-                        </p>
-                        
-                        <button class="ios-button">Entendido</button>
-                        
-                    </div> <!-- /Content -->
-                </div> <!-- /Padding -->
-            </div> <!-- /Border -->
-        </div> <!-- /Margin -->
+                    <!-- Contenido (Blanco) -->
+                    <div class="layer content" id="layer-content" onclick="mostrarInfo('content', event)">
+                        <h2 class="content-title">Core Content</h2>
+                        <p style="margin-top: 10px; color: #666; font-size: 14px;">El núcleo de la caja web.</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL DE INFORMACIÓN DINÁMICO -->
+        <div class="info-panel" id="info-panel">
+            <p class="default-text">Haz clic en alguna de las capas superiores para descubrir su función estructural.</p>
+        </div>
 
     </main>
 
+    <!-- LÓGICA JAVASCRIPT -->
     <script>
-        function toggleBoxModel() {
-            const container = document.getElementById('demonstration');
-            const toggle = document.getElementById('inspectorToggle');
-            
-            if (toggle.checked) {
-                container.classList.add('inspect-mode');
-            } else {
-                container.classList.remove('inspect-mode');
+        const datosCaja = {
+            margin: {
+                titulo: "Margen (Margin) — El espacio exterior",
+                texto: "Es el área invisible que rodea el borde. Su función principal es empujar y separar esta caja de los demás elementos de la página, creando una estructura limpia y respirable en el diseño (Whitespace)."
+            },
+            border: {
+                titulo: "Borde (Border) — La delimitación",
+                texto: "Es la línea estructural que envuelve el relleno y el contenido. En el diseño moderno suele ser sutil o transparente, pero es fundamental porque marca el límite físico exacto del elemento en el DOM."
+            },
+            padding: {
+                titulo: "Relleno (Padding) — El espacio interior",
+                texto: "Es el margen interno entre el borde y el contenido real. Es vital en UI/UX para evitar que el texto o las imágenes choquen contra los bordes, otorgando legibilidad y estética profesional a botones y tarjetas."
+            },
+            content: {
+                titulo: "Contenido (Content) — El núcleo de datos",
+                texto: "Es el corazón de la caja. Aquí es donde se renderizan los textos, imágenes, videos o títulos. Las propiedades de ancho (width) y alto (height) en CSS tradicional se aplican directamente a esta zona."
             }
+        };
+
+        const infoPanel = document.getElementById('info-panel');
+        const todasLasCapas = document.querySelectorAll('.layer');
+
+        function mostrarInfo(capa, event) {
+            // Evita el Event Bubbling (que el clic traspase a las cajas de abajo)
+            event.stopPropagation();
+
+            // Limpiar la clase activa de todas
+            todasLasCapas.forEach(el => el.classList.remove('active'));
+
+            // Resaltar la seleccionada
+            document.getElementById(`layer-${capa}`).classList.add('active');
+
+            // Extraer info e inyectar al panel
+            const info = datosCaja[capa];
+            infoPanel.innerHTML = `
+                <h2>${info.titulo}</h2>
+                <p>${info.texto}</p>
+            `;
+            
+            // Pequeña animación visual al cambiar el texto
+            infoPanel.style.transform = 'translateY(5px)';
+            infoPanel.style.opacity = '0.5';
+            setTimeout(() => {
+                infoPanel.style.transform = 'translateY(0)';
+                infoPanel.style.opacity = '1';
+            }, 150);
         }
     </script>
 </body>
